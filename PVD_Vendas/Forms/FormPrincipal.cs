@@ -29,7 +29,6 @@ namespace PVD_Vendas
 
         Forms.Sacola.UserControlSacola sacola = new Forms.Sacola.UserControlSacola();
 
-
         public FormPrincipal()
         {
             InitializeComponent();
@@ -189,34 +188,31 @@ namespace PVD_Vendas
 
         private void FormPrincipal_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                buttonSair_Click(sender, e);
-            }
-
             if (e.KeyCode == Keys.F1)
             {
                 buttonAjuda_Click(sender, e);
             }
 
-            if (e.KeyCode == Keys.F12)
+            if (e.KeyCode == Keys.F2)
             {
-                buttonConfiguracoes_Click(sender, e);
+                Forms.FormReferenciarCliente window = new Forms.FormReferenciarCliente();
+                window.ShowDialog();
+                window.Dispose();
             }
 
-            if (e.KeyCode == Keys.Insert)
+            if (e.KeyCode == Keys.F3)
             {
-                textBoxPesquisarProduto.Focus();
+                
             }
 
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.F4)
             {
-                buttonIncluirProduto_Click(sender, e);
+                
             }
 
             if (e.KeyCode == Keys.F5)
             {
-                if(sacolaVenda._retornarValidacao() == true)
+                if (sacolaVenda._retornarValidacao() == true)
                 {
                     sacola.buttonConfirmar_Click(sender, e);
                 }
@@ -224,7 +220,7 @@ namespace PVD_Vendas
 
             if (e.KeyCode == Keys.F7)
             {
-                if(sacolaVenda._retornarValidacao() == true)
+                if (sacolaVenda._retornarValidacao() == true)
                 {
                     sacola.buttonAguardar_Click(sender, e);
                 }
@@ -239,6 +235,36 @@ namespace PVD_Vendas
                     //
                     sacolaVenda.receberDados(false);
                 }
+            }
+
+            if (e.KeyCode == Keys.F10)
+            {
+                
+            }
+
+            if (e.KeyCode == Keys.F12)
+            {
+                buttonConfiguracoes_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonIncluirProduto_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                buttonSair_Click(sender, e);
+            }
+
+            if (e.KeyCode == Keys.Insert)
+            {
+                textBoxPesquisarProduto.Focus();
             }
         }
 

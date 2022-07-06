@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PVD_Vendas.Forms
 {
-    public partial class FormAjuda : Form
+    public partial class FormReferenciarCliente : Form
     {
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
@@ -25,12 +25,41 @@ namespace PVD_Vendas.Forms
             int nHeightEllipse
         );
 
-        public FormAjuda()
+        public FormReferenciarCliente()
         {
             InitializeComponent();
         }
+        private void buttonReferenciar_Paint(object sender, PaintEventArgs e)
+        {
+            buttonReferenciar.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonReferenciar.Width,
+            buttonReferenciar.Height, 3, 3));
+        }
 
-        private void FormAjuda_Load(object sender, EventArgs e)
+        private void buttonVoltar_Paint(object sender, PaintEventArgs e)
+        {
+            buttonVoltar.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonVoltar.Width,
+            buttonVoltar.Height, 3, 3));
+        }
+
+        private void FormReferenciarCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormReferenciarCliente_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Escape)
+            {
+                buttonVoltar_Click(sender, e);
+            }
+
+            if(e.KeyCode == Keys.Enter)
+            {
+                buttonReferenciar_Click(sender, e);
+            }
+        }
+
+        private void buttonReferenciar_Click(object sender, EventArgs e)
         {
 
         }
@@ -40,18 +69,7 @@ namespace PVD_Vendas.Forms
             Close();
         }
 
-        private void buttonVoltar_Paint(object sender, PaintEventArgs e)
-        {
-            buttonVoltar.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonVoltar.Width,
-            buttonVoltar.Height, 3, 3));
-        }
 
-        private void FormAjuda_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Escape)
-            {
-                buttonVoltar_Click(sender, e);
-            }
-        }
+     
     }
 }

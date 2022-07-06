@@ -377,7 +377,7 @@
             this.Name = "FormPrincipal";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PVD VENDAS - AGROPECUARIA TX";
+            this.Text = "PVD DESKTOP - AGROPECUARIA TX";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.SizeChanged += new System.EventHandler(this.FormPrincipal_SizeChanged);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyUp);

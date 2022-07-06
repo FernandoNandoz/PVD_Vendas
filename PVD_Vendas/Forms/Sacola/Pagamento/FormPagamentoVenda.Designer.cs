@@ -348,9 +348,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormPagamentoVenda";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pagamento Venda";
+            this.Text = "Confirmação de pagamento";
             this.Load += new System.EventHandler(this.FormPagamentoVenda_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormPagamentoVenda_KeyUp);
             groupBox1.ResumeLayout(false);
