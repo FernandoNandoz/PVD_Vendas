@@ -13,7 +13,7 @@ namespace PVD_Vendas
 
         public void conectar()
         {
-            connection.ConnectionString = ("Data Source=(local);Initial Catalog=DataAgropecuariaTX;Integrated Security=True");
+            connection.ConnectionString = ("Data Source=(local);Initial Catalog=DatabaseHighData;Integrated Security=True");
             connection.Open();
         }
 

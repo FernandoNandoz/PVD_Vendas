@@ -242,7 +242,6 @@
             // Column5
             // 
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.Column5.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column5.HeaderText = "Qtde.";
             this.Column5.MinimumWidth = 6;
@@ -307,15 +306,15 @@
         private System.Windows.Forms.Panel panelSubtotal;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.DataGridView dataGridViewContent;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Button buttonConfirmar;
+        public System.Windows.Forms.Button buttonAguardar;
+        public System.Windows.Forms.Button buttonCancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewImageColumn Column3;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Button buttonConfirmar;
-        public System.Windows.Forms.Button buttonAguardar;
-        public System.Windows.Forms.Button buttonCancelar;
     }
 }

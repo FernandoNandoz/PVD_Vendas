@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,6 +14,7 @@ namespace PVD_Vendas
 {
     public partial class FormPrincipal : Form
     {
+        #region Dll Paint
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
         private static extern IntPtr CreateRoundRectRgn
@@ -24,10 +26,16 @@ namespace PVD_Vendas
             int nWidthEllipse,
             int nHeightEllipse
         );
+        #endregion
 
-        int larguraPanel = 0, mediaPanel = 0;
+        Banco banco = new Banco();
 
         Forms.Sacola.UserControlSacola sacola = new Forms.Sacola.UserControlSacola();
+
+
+        int larguraPanel = 0, mediaPanel = 0;
+        bool liberaSacola = false;
+
 
         public FormPrincipal()
         {
@@ -176,9 +184,106 @@ namespace PVD_Vendas
 
         #endregion
 
-        private void dataProdutos()
+        private void limparControles()
         {
-            sacola.dataGridViewContent.Rows.Add(0, "1", "teste", "20,00", "40,00");
+            liberaSacola = false;
+
+            textBoxPesquisarProduto.Clear();
+            textBoxQuantidade.Text = "1";
+            textBoxValorUnitario.Text = decimal.Parse("0").ToString("N2");
+            textBoxValorTotal.Text = decimal.Parse("0").ToString("N2");
+
+            //
+            textBoxPesquisarProduto.Focus();
+        }
+
+        private void pesquisaAutoCompleteProduto()
+        {
+            try
+            {
+                SqlCommand exePesquisa = new SqlCommand("SELECT nomeProduto, tipoUnitario, codigoProduto FROM Produtos", banco.connection);
+
+                banco.conectar();
+                SqlDataReader dr = exePesquisa.ExecuteReader();
+                AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+
+                while (dr.Read())
+                {
+                    lista.Add(dr.GetString(0) + "   ( " + dr.GetString(1) + " )      " + dr.GetString(2));
+                }
+                banco.desconectar();
+
+                textBoxPesquisarProduto.AutoCompleteCustomSource = lista;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private string[] dataProdutos()
+        {
+            string[] response = { };
+
+            decimal quantidade = 0, valorUnitario = 0, valorTotal = 0;
+
+            try
+            {
+                //Retorna os dados da tabela Produtos
+                string query = ("SELECT idProduto, nomeProduto, tipoUnitario, codigoProduto, estoqueAtual, valorVenda FROM Produtos WHERE nomeProduto = @nome");
+                SqlCommand exeVerificacao = new SqlCommand(query, banco.connection);
+                banco.conectar();
+
+                string textProduto = textBoxPesquisarProduto.Text;
+
+                string[] produto = textProduto.Split('('); 
+
+                exeVerificacao.Parameters.AddWithValue("@nome", produto[0]);
+
+                SqlDataReader datareader = exeVerificacao.ExecuteReader();
+
+                while (datareader.Read())
+                {
+                    //
+                    quantidade = 1;
+                    valorUnitario = datareader.GetDecimal(5);
+                    valorTotal = valorUnitario * quantidade;
+
+                    //
+                    response = new string[5] { datareader[0].ToString(), datareader.GetString(1), quantidade.ToString(), valorUnitario.ToString(), valorTotal.ToString()};
+
+                    //
+                    textBoxPesquisarProduto.Text = datareader.GetString(1);
+                    textBoxQuantidade.Text = "1";
+                    textBoxValorUnitario.Text = valorUnitario.ToString("N2");
+                    textBoxValorTotal.Text = valorTotal.ToString("N2");
+
+                    //
+                    liberaSacola = true;
+                }
+
+                banco.desconectar();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return response;
+
+        }
+
+        private decimal calcularValorTotal_Produto(int quantidade, decimal valorUnitario)
+        {
+            return 0;
+        }
+
+        private decimal calcularSubTotalTotal_Sacola(decimal Value)
+        {
+            return 0;
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -188,11 +293,13 @@ namespace PVD_Vendas
 
         private void FormPrincipal_KeyUp(object sender, KeyEventArgs e)
         {
+            //Completo
             if (e.KeyCode == Keys.F1)
             {
                 buttonAjuda_Click(sender, e);
             }
 
+            //Completo
             if (e.KeyCode == Keys.F2)
             {
                 Forms.FormReferenciarCliente window = new Forms.FormReferenciarCliente();
@@ -205,36 +312,34 @@ namespace PVD_Vendas
                 
             }
 
+            //Completo
             if (e.KeyCode == Keys.F4)
             {
-                
+                Forms.FormVendasAguardadas window = new Forms.FormVendasAguardadas();
+                window.ShowDialog();
+                window.Dispose();
             }
 
-            if (e.KeyCode == Keys.F5)
+            //Completo
+            if (e.KeyCode == Keys.F5 && sacolaVenda._retornarValidacao() == true)
             {
-                if (sacolaVenda._retornarValidacao() == true)
-                {
-                    sacola.buttonConfirmar_Click(sender, e);
-                }
+                sacola.buttonConfirmar_Click(sender, e);
             }
 
-            if (e.KeyCode == Keys.F7)
+            //Completo
+            if (e.KeyCode == Keys.F7 && sacolaVenda._retornarValidacao() == true)
             {
-                if (sacolaVenda._retornarValidacao() == true)
-                {
-                    sacola.buttonAguardar_Click(sender, e);
-                }
-
+                sacola.buttonAguardar_Click(sender, e);
             }
 
-            if (e.KeyCode == Keys.F9)
+            //Completo
+            if (e.KeyCode == Keys.F9 && sacolaVenda._retornarValidacao() == true)
             {
-                if (sacolaVenda._retornarValidacao() == true)
-                {
-                    sacola.buttonCancelar_Click(sender, e);
-                    //
-                    sacolaVenda.receberDados(false);
-                }
+                limparControles();
+
+                sacola.buttonCancelar_Click(sender, e);
+                //
+                sacolaVenda.receberDados(false);
             }
 
             if (e.KeyCode == Keys.F10)
@@ -242,6 +347,7 @@ namespace PVD_Vendas
                 
             }
 
+            //Completo
             if (e.KeyCode == Keys.F12)
             {
                 buttonConfiguracoes_Click(sender, e);
@@ -252,18 +358,17 @@ namespace PVD_Vendas
                 
             }
 
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonIncluirProduto_Click(sender, e);
-            }
-
+            //Completo
             if (e.KeyCode == Keys.Escape)
             {
                 buttonSair_Click(sender, e);
             }
 
+            //Completo
             if (e.KeyCode == Keys.Insert)
             {
+                limparControles();
+                //
                 textBoxPesquisarProduto.Focus();
             }
         }
@@ -287,17 +392,40 @@ namespace PVD_Vendas
             window.Dispose();
         }
 
+        private void textBoxPesquisarProduto_Enter(object sender, EventArgs e)
+        {
+            pesquisaAutoCompleteProduto();
+        }
+
         private void textBoxPesquisarProduto_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (liberaSacola == true)
+                {
+                    buttonIncluirProduto_Click(sender, e);
 
+                    liberaSacola = false;
+                }
+                else
+                {
+                    dataProdutos();
+                }
+            }
         }
 
         private void buttonIncluirProduto_Click(object sender, EventArgs e)
         {
+            string[] data = { };
+
             if (sacolaVenda._retornarValidacao() == true)
             {
-                dataProdutos();
+                data = dataProdutos();
 
+                sacola.dataGridViewContent.Rows.Add(data[0], data[2], data[1], data[3], data[4]);
+
+                //
+                limparControles();
             }
             else
             {
@@ -310,7 +438,12 @@ namespace PVD_Vendas
                 groupBoxCaixaVazio.SendToBack();
 
                 //
-                dataProdutos();
+                data = dataProdutos();
+
+                sacola.dataGridViewContent.Rows.Add(data[0], data[2], data[1], data[3], data[4]);
+
+                //
+                limparControles();
             }
 
         }

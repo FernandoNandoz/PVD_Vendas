@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource\DatabaseHighDataDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseHighDataDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Configuracoes\FormConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +74,12 @@
     </Compile>
     <Compile Include="Forms\FormReferenciarCliente.Designer.cs">
       <DependentUpon>FormReferenciarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormVendasAguardadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormVendasAguardadas.Designer.cs">
+      <DependentUpon>FormVendasAguardadas.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Sacola\Pagamento\FormPagamentoVenda.cs">
       <SubType>Form</SubType>
@@ -115,6 +126,9 @@
     <EmbeddedResource Include="Forms\FormReferenciarCliente.resx">
       <DependentUpon>FormReferenciarCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormVendasAguardadas.resx">
+      <DependentUpon>FormVendasAguardadas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sacola\Pagamento\FormPagamentoVenda.resx">
       <DependentUpon>FormPagamentoVenda.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +153,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DataSource\DatabaseHighDataDataSet.xsc">
+      <DependentUpon>DatabaseHighDataDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSource\DatabaseHighDataDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatabaseHighDataDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSource\DatabaseHighDataDataSet.xss">
+      <DependentUpon>DatabaseHighDataDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -152,5 +177,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

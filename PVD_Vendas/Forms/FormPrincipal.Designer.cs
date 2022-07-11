@@ -50,6 +50,8 @@
             this.textBoxPesquisarProduto = new System.Windows.Forms.TextBox();
             this.panelContent = new System.Windows.Forms.Panel();
             this.groupBoxCaixaVazio = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.pictureBoxSacolaVazia = new System.Windows.Forms.PictureBox();
             pictureBoxIconOperador = new System.Windows.Forms.PictureBox();
             label3 = new System.Windows.Forms.Label();
@@ -272,6 +274,7 @@
             this.textBoxValorTotal.Size = new System.Drawing.Size(150, 32);
             this.textBoxValorTotal.TabIndex = 3;
             this.textBoxValorTotal.Text = "0,00";
+            this.textBoxValorTotal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
             // 
             // textBoxValorUnitario
             // 
@@ -284,6 +287,7 @@
             this.textBoxValorUnitario.Size = new System.Drawing.Size(150, 32);
             this.textBoxValorUnitario.TabIndex = 2;
             this.textBoxValorUnitario.Text = "0,00";
+            this.textBoxValorUnitario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
             // 
             // buttonIncluirProduto
             // 
@@ -314,16 +318,18 @@
             this.textBoxQuantidade.Size = new System.Drawing.Size(150, 32);
             this.textBoxQuantidade.TabIndex = 1;
             this.textBoxQuantidade.Text = "0";
+            this.textBoxQuantidade.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
             // 
             // textBoxPesquisarProduto
             // 
-            this.textBoxPesquisarProduto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxPesquisarProduto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.textBoxPesquisarProduto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxPesquisarProduto.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.textBoxPesquisarProduto.Location = new System.Drawing.Point(16, 41);
             this.textBoxPesquisarProduto.Name = "textBoxPesquisarProduto";
             this.textBoxPesquisarProduto.Size = new System.Drawing.Size(396, 32);
             this.textBoxPesquisarProduto.TabIndex = 0;
+            this.textBoxPesquisarProduto.Enter += new System.EventHandler(this.textBoxPesquisarProduto_Enter);
             this.textBoxPesquisarProduto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
             // 
             // panelContent
@@ -344,6 +350,8 @@
             this.groupBoxCaixaVazio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxCaixaVazio.Controls.Add(this.label5);
+            this.groupBoxCaixaVazio.Controls.Add(this.label4);
             this.groupBoxCaixaVazio.Controls.Add(this.pictureBoxSacolaVazia);
             this.groupBoxCaixaVazio.Controls.Add(label2);
             this.groupBoxCaixaVazio.Location = new System.Drawing.Point(35, 24);
@@ -351,6 +359,29 @@
             this.groupBoxCaixaVazio.Size = new System.Drawing.Size(1074, 402);
             this.groupBoxCaixaVazio.TabIndex = 3;
             this.groupBoxCaixaVazio.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(185)))), ((int)(((byte)(63)))));
+            this.label5.Location = new System.Drawing.Point(60, 374);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 20);
+            this.label5.TabIndex = 40;
+            this.label5.Text = "Conectado";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 374);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 20);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Status: ";
             // 
             // pictureBoxSacolaVazia
             // 
@@ -377,7 +408,7 @@
             this.Name = "FormPrincipal";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PVD DESKTOP - AGROPECUARIA TX";
+            this.Text = "HIGH - PVD DESKTOP - AGROPECUARIA TX";
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.SizeChanged += new System.EventHandler(this.FormPrincipal_SizeChanged);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyUp);
@@ -414,6 +445,8 @@
         private System.Windows.Forms.Label labelValorUnitario;
         private System.Windows.Forms.Label labelQuantidade;
         public System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 
