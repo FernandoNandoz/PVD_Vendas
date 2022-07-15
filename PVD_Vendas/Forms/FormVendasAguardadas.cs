@@ -13,6 +13,7 @@ namespace PVD_Vendas.Forms
 {
     public partial class FormVendasAguardadas : Form
     {
+        #region Dll Paint
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
         private static extern IntPtr CreateRoundRectRgn
@@ -24,11 +25,28 @@ namespace PVD_Vendas.Forms
             int nWidthEllipse,
             int nHeightEllipse
         );
+        #endregion
 
         public FormVendasAguardadas()
         {
             InitializeComponent();
         }
+
+        #region Paint
+
+        private void buttonSair_Paint(object sender, PaintEventArgs e)
+        {
+            buttonSair.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSair.Width,
+            buttonSair.Height, 3, 3));
+        }
+
+        private void panelDescricao_Paint(object sender, PaintEventArgs e)
+        {
+            panelDescricao.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelDescricao.Width,
+            panelDescricao.Height, 25, 25));
+        }
+
+        #endregion
 
         private void FormVendasAguardadas_Load(object sender, EventArgs e)
         {
@@ -62,18 +80,6 @@ namespace PVD_Vendas.Forms
         private void buttonSair_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void buttonSair_Paint(object sender, PaintEventArgs e)
-        {
-            buttonSair.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSair.Width,
-            buttonSair.Height, 3, 3));
-        }
-
-        private void panelDescricao_Paint(object sender, PaintEventArgs e)
-        {
-            panelDescricao.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelDescricao.Width,
-            panelDescricao.Height, 25, 25));
-        }
+        }   
     }
 }

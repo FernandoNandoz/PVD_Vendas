@@ -330,6 +330,7 @@ namespace PVD_Vendas
                 window.Dispose();
             }
 
+            //Funçao que sincroniza vendas - (Criar no final)
             if (e.KeyCode == Keys.F3)
             {
 
@@ -457,7 +458,7 @@ namespace PVD_Vendas
             if (e.KeyCode == Keys.Insert)
             {
                 limparControles();
-                //
+                
                 textBoxPesquisarProduto.Focus();
             }
 

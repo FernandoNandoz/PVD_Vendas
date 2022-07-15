@@ -27,6 +27,11 @@ namespace PVD_Vendas.Forms.Alertas
         // 3 - Cancelar pedido
         // 4 - Aguardar pedido
         // 5 - Finalizar pedido
+        //
+        // 10 - Pedido Finalizado
+        // 11 - Preencher valor recebido
+        // 12 - Valor unitário é igual a zero
+        // 13 - Configurações atualizadas
 
 
         public FormAlerta()
@@ -86,6 +91,13 @@ namespace PVD_Vendas.Forms.Alertas
             if (alertValidation._retornarOperacao() == 12)
             {
                 information.OperacaoInterna = 3; // 3 = Valor unitário é igual a zero
+                //
+                panelContent.Controls.Add(information);
+            }
+
+            if (alertValidation._retornarOperacao() == 13)
+            {
+                information.OperacaoInterna = 4; // 3 = Configurações atualizadas
                 //
                 panelContent.Controls.Add(information);
             }
@@ -162,6 +174,11 @@ namespace PVD_Vendas.Forms.Alertas
                 }
 
                 if (alertValidation._retornarOperacao() == 12)
+                {
+                    information.buttonSim_Click(sender, e);
+                }
+
+                if (alertValidation._retornarOperacao() == 13)
                 {
                     information.buttonSim_Click(sender, e);
                 }

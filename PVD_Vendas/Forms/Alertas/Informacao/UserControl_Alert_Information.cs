@@ -60,6 +60,11 @@ namespace PVD_Vendas.Forms.Alertas.Informacao
             {
                 labelDescricao.Text = "O valor unitário deste produto é zero, favor corrigir antes de adicionar ao carrinho!";
             }
+
+            if (OperacaoInterna == 4)
+            {
+                labelDescricao.Text = "Configurações atualizadas com sucesso!";
+            }
         }
 
         public void buttonSim_Click(object sender, EventArgs e)

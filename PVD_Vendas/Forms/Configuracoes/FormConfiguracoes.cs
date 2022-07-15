@@ -37,7 +37,14 @@ namespace PVD_Vendas.Forms.Configuracoes
 
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
+            //CODIGO DE OPERAÇÃO
+            // 13  = Configuracoes atualizadas
 
+            alertValidation.receberOperacao(13);
+
+            Forms.Alertas.FormAlerta window = new Forms.Alertas.FormAlerta();
+            window.ShowDialog();
+            window.Dispose();
         }
 
         private void buttonVoltar_Click(object sender, EventArgs e)
