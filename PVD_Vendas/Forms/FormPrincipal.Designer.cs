@@ -273,7 +273,7 @@
             this.textBoxValorTotal.Name = "textBoxValorTotal";
             this.textBoxValorTotal.Size = new System.Drawing.Size(150, 32);
             this.textBoxValorTotal.TabIndex = 3;
-            this.textBoxValorTotal.Text = "0,00";
+            this.textBoxValorTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxValorTotal_KeyPress);
             this.textBoxValorTotal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
             // 
             // textBoxValorUnitario
@@ -286,8 +286,9 @@
             this.textBoxValorUnitario.Name = "textBoxValorUnitario";
             this.textBoxValorUnitario.Size = new System.Drawing.Size(150, 32);
             this.textBoxValorUnitario.TabIndex = 2;
-            this.textBoxValorUnitario.Text = "0,00";
-            this.textBoxValorUnitario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
+            this.textBoxValorUnitario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxValorUnitario_KeyDown);
+            this.textBoxValorUnitario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxValorUnitario_KeyPress);
+            this.textBoxValorUnitario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxValorUnitario_KeyUp);
             // 
             // buttonIncluirProduto
             // 
@@ -317,8 +318,8 @@
             this.textBoxQuantidade.Name = "textBoxQuantidade";
             this.textBoxQuantidade.Size = new System.Drawing.Size(150, 32);
             this.textBoxQuantidade.TabIndex = 1;
-            this.textBoxQuantidade.Text = "0";
-            this.textBoxQuantidade.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxPesquisarProduto_KeyUp);
+            this.textBoxQuantidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxQuantidade_KeyPress);
+            this.textBoxQuantidade.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxQuantidade_KeyUp);
             // 
             // textBoxPesquisarProduto
             // 
@@ -344,6 +345,7 @@
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(1144, 450);
             this.panelContent.TabIndex = 2;
+            this.panelContent.TabStop = true;
             // 
             // groupBoxCaixaVazio
             // 

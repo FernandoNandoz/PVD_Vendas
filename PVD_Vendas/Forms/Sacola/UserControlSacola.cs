@@ -153,21 +153,34 @@ namespace PVD_Vendas.Forms.Sacola
 
         #endregion
 
+        private void calcularSubTotalTotal_Sacola(int operation, decimal Value)
+        {
+            //Tipos de Operção
+            // 1 = ADIÇÃO
+            // 2 = SUBTRAÇÃO
+
+            decimal SubTotal_Atual = 0, SubTotal_Novo = 0;
+
+            string subTotal_Label = labelSubotal_Value.Text;
+            string[] subTotal_Value = subTotal_Label.Split(' ');
+
+            SubTotal_Atual = decimal.Parse(subTotal_Value[1]);
+
+            if (operation == 1)
+            {
+                SubTotal_Novo = SubTotal_Atual + Value;
+            }
+            else if (operation == 2)
+            {
+                SubTotal_Novo = SubTotal_Atual - Value;
+            }
+
+            labelSubotal_Value.Text = ("R$ " + SubTotal_Novo.ToString("N2"));
+        }
 
         private void UserControlSacola_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void dataGridViewContent_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if(dataGridViewContent.Rows.Count != 0)
-            {
-                if(e.ColumnIndex == 5)
-                {
-                    dataGridViewContent.Rows.RemoveAt(dataGridViewContent.CurrentRow.Index);
-                }
-            }
         }
 
         public void buttonConfirmar_Click(object sender, EventArgs e)
@@ -182,9 +195,43 @@ namespace PVD_Vendas.Forms.Sacola
 
         }
 
+        public void dataGridViewContent_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            decimal value = 0;
+
+            if (dataGridViewContent.Rows.Count != 0)
+            {
+                if (e.ColumnIndex == 5)
+                {
+                    value = decimal.Parse(dataGridViewContent.CurrentRow.Cells[4].Value.ToString());
+
+                    dataGridViewContent.Rows.RemoveAt(dataGridViewContent.CurrentRow.Index);
+
+                    calcularSubTotalTotal_Sacola(2, value);
+                }
+            }
+
+        }
+
+        public void removerItemSacola()
+        {
+            decimal value = 0;
+
+            if (dataGridViewContent.Rows.Count != 0)
+            {
+                value = decimal.Parse(dataGridViewContent.CurrentRow.Cells[4].Value.ToString());
+
+                dataGridViewContent.Rows.RemoveAt(dataGridViewContent.CurrentRow.Index);
+
+                calcularSubTotalTotal_Sacola(2, value);
+            }
+        }
+
         public void buttonCancelar_Click(object sender, EventArgs e)
         {
             dataGridViewContent.Rows.Clear();
+
+            labelSubotal_Value.Text = "R$ 0,00";
 
             this.Parent.Controls.Remove(this);
 

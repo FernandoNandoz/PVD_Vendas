@@ -87,10 +87,10 @@
             label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             label1.Location = new System.Drawing.Point(22, 57);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(787, 13);
+            label1.Size = new System.Drawing.Size(817, 13);
             label1.TabIndex = 34;
             label1.Text = "_________________________________________________________________________________" +
-    "_________________________________________________";
+    "______________________________________________________";
             // 
             // label2
             // 
@@ -128,6 +128,28 @@
             label7.Text = "Tela de Configurações";
             label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            label3.Location = new System.Drawing.Point(22, 262);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(817, 13);
+            label3.TabIndex = 77;
+            label3.Text = "_________________________________________________________________________________" +
+    "______________________________________________________";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            label5.Location = new System.Drawing.Point(22, 418);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(817, 13);
+            label5.TabIndex = 78;
+            label5.Text = "_________________________________________________________________________________" +
+    "______________________________________________________";
+            // 
             // buttonVoltar
             // 
             this.buttonVoltar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -136,7 +158,7 @@
             this.buttonVoltar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonVoltar.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonVoltar.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonVoltar.Location = new System.Drawing.Point(352, 547);
+            this.buttonVoltar.Location = new System.Drawing.Point(355, 547);
             this.buttonVoltar.Name = "buttonVoltar";
             this.buttonVoltar.Size = new System.Drawing.Size(150, 35);
             this.buttonVoltar.TabIndex = 51;
@@ -241,9 +263,9 @@
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(433, 156);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(280, 17);
+            this.label17.Size = new System.Drawing.Size(403, 17);
             this.label17.TabIndex = 60;
-            this.label17.Text = "(DELETE)  Excluir item da lista de produtos";
+            this.label17.Text = "(DELETE)  Excluir item da lista de produtos / Campo Pesquisar";
             // 
             // label18
             // 
@@ -385,34 +407,12 @@
             this.label32.TabIndex = 73;
             this.label32.Text = "(TAB)  Troca para outros campos selecionáveis";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            label3.Location = new System.Drawing.Point(22, 262);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(787, 13);
-            label3.TabIndex = 77;
-            label3.Text = "_________________________________________________________________________________" +
-    "_________________________________________________";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            label5.Location = new System.Drawing.Point(22, 418);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(787, 13);
-            label5.TabIndex = 78;
-            label5.Text = "_________________________________________________________________________________" +
-    "_________________________________________________";
-            // 
             // FormAjuda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(835, 603);
+            this.ClientSize = new System.Drawing.Size(861, 603);
             this.Controls.Add(label5);
             this.Controls.Add(label3);
             this.Controls.Add(this.label25);

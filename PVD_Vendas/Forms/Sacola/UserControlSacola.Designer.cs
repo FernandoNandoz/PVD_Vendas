@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label label2;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -37,8 +38,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserControlSacola));
             this.panelOpcoes = new System.Windows.Forms.Panel();
             this.panelSubtotal = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelSubotal_Value = new System.Windows.Forms.Label();
             this.buttonConfirmar = new System.Windows.Forms.Button();
             this.buttonAguardar = new System.Windows.Forms.Button();
             this.buttonCancelar = new System.Windows.Forms.Button();
@@ -49,10 +49,23 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewImageColumn();
+            label2 = new System.Windows.Forms.Label();
             this.panelOpcoes.SuspendLayout();
             this.panelSubtotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContent)).BeginInit();
             this.SuspendLayout();
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label2.ForeColor = System.Drawing.SystemColors.Window;
+            label2.Location = new System.Drawing.Point(14, 18);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(159, 34);
+            label2.TabIndex = 38;
+            label2.Text = "SUBTOTAL:";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelOpcoes
             // 
@@ -72,37 +85,25 @@
             // panelSubtotal
             // 
             this.panelSubtotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(162)))), ((int)(((byte)(211)))));
-            this.panelSubtotal.Controls.Add(this.label1);
-            this.panelSubtotal.Controls.Add(this.label2);
+            this.panelSubtotal.Controls.Add(this.labelSubotal_Value);
+            this.panelSubtotal.Controls.Add(label2);
             this.panelSubtotal.Location = new System.Drawing.Point(8, 3);
             this.panelSubtotal.Name = "panelSubtotal";
             this.panelSubtotal.Size = new System.Drawing.Size(536, 66);
-            this.panelSubtotal.TabIndex = 19;
+            this.panelSubtotal.TabIndex = 199;
             this.panelSubtotal.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSubtotal_Paint);
             // 
-            // label1
+            // labelSubotal_Value
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(161, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 33);
-            this.label1.TabIndex = 39;
-            this.label1.Text = "R$ 130,00";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Window;
-            this.label2.Location = new System.Drawing.Point(14, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(154, 33);
-            this.label2.TabIndex = 38;
-            this.label2.Text = "SUBTOTAL:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelSubotal_Value.AutoSize = true;
+            this.labelSubotal_Value.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSubotal_Value.ForeColor = System.Drawing.SystemColors.Window;
+            this.labelSubotal_Value.Location = new System.Drawing.Point(166, 18);
+            this.labelSubotal_Value.Name = "labelSubotal_Value";
+            this.labelSubotal_Value.Size = new System.Drawing.Size(111, 34);
+            this.labelSubotal_Value.TabIndex = 39;
+            this.labelSubotal_Value.Text = "R$ 0,00";
+            this.labelSubotal_Value.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonConfirmar
             // 
@@ -178,7 +179,7 @@
             this.dataGridViewContent.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
@@ -193,7 +194,7 @@
             this.Column2,
             this.Column3});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
@@ -207,7 +208,6 @@
             this.dataGridViewContent.Name = "dataGridViewContent";
             this.dataGridViewContent.ReadOnly = true;
             this.dataGridViewContent.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -218,16 +218,19 @@
             this.dataGridViewContent.RowHeadersVisible = false;
             this.dataGridViewContent.RowHeadersWidth = 51;
             this.dataGridViewContent.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Calibri", 14F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             this.dataGridViewContent.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewContent.RowTemplate.Height = 35;
+            this.dataGridViewContent.RowTemplate.Height = 40;
             this.dataGridViewContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewContent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewContent.Size = new System.Drawing.Size(1144, 374);
             this.dataGridViewContent.TabIndex = 19;
             this.dataGridViewContent.TabStop = false;
+            this.dataGridViewContent.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White;
             this.dataGridViewContent.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewContent_CellContentClick);
             // 
             // Column7
@@ -242,8 +245,10 @@
             // Column5
             // 
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = null;
             this.Column5.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column5.HeaderText = "Qtde.";
+            this.Column5.HeaderText = "      Qtde.";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -304,9 +309,8 @@
 
         private System.Windows.Forms.Panel panelOpcoes;
         private System.Windows.Forms.Panel panelSubtotal;
-        private System.Windows.Forms.Label label2;
         public System.Windows.Forms.DataGridView dataGridViewContent;
-        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label labelSubotal_Value;
         public System.Windows.Forms.Button buttonConfirmar;
         public System.Windows.Forms.Button buttonAguardar;
         public System.Windows.Forms.Button buttonCancelar;

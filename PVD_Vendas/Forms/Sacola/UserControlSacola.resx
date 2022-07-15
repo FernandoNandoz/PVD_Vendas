@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="label2.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="Column7.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -139,7 +142,7 @@
   <data name="Column3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFUAAAAbCAYAAAANp8NGAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAApdJREFUaEPtmr1OwzAQx7PzLIiHYGfogngAHgB1AJ6iBGZWJFjKDuVDYqADUhtU
+        vAAADrwBlbxySQAAApdJREFUaEPtmr1OwzAQx7PzLIiHYGfogngAHgB1AJ6iBGZWJFjKDuVDYqADUhtU
         JJYudODjFVoOnxOfz46T4tYRRfLwb9PcR86/3DlIIQEAqfF4vJZl2dZwONyJ8hNyQ36KpfwYjUab+D2d
         TmE2m0V5CrlxjrJD8cDlHOUn5Ig8E2zd2KFhhByRZ4J7gsshajEhzwg1sCLUBhShNqAItQEtAfUdTtIj
         SNqpoY3uCzzN8UnSO+Fj2ja6Xyw3KoNTHtMHssHkWcautw4hkToWOSuua+XF2F2Z8xy2Jx819ekYXy0F

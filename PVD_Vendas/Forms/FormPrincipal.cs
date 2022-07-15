@@ -5,10 +5,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace PVD_Vendas
 {
@@ -34,8 +37,7 @@ namespace PVD_Vendas
 
 
         int larguraPanel = 0, mediaPanel = 0;
-        bool liberaSacola = false;
-
+        bool liberaSacola = false, liberarDeleteSacola = false;
 
         public FormPrincipal()
         {
@@ -187,12 +189,14 @@ namespace PVD_Vendas
         private void limparControles()
         {
             liberaSacola = false;
+            liberarDeleteSacola = false;
 
             textBoxPesquisarProduto.Clear();
             textBoxQuantidade.Text = "1";
-            textBoxValorUnitario.Text = decimal.Parse("0").ToString("N2");
-            textBoxValorTotal.Text = decimal.Parse("0").ToString("N2");
-
+            textBoxValorUnitario.Text = string.Format("{0:#,##0.00}", 0d);
+            textBoxValorTotal.Text = string.Format("{0:#,##0.00}", 0d);
+            //
+            sacola.dataGridViewContent.DefaultCellStyle.SelectionBackColor = Color.White;
             //
             textBoxPesquisarProduto.Focus();
         }
@@ -215,7 +219,6 @@ namespace PVD_Vendas
 
                 textBoxPesquisarProduto.AutoCompleteCustomSource = lista;
 
-
             }
             catch (Exception ex)
             {
@@ -223,12 +226,8 @@ namespace PVD_Vendas
             }
         }
 
-        private string[] dataProdutos()
+        private void encontrarProdutos()
         {
-            string[] response = { };
-
-            decimal quantidade = 0, valorUnitario = 0, valorTotal = 0;
-
             try
             {
                 //Retorna os dados da tabela Produtos
@@ -238,30 +237,21 @@ namespace PVD_Vendas
 
                 string textProduto = textBoxPesquisarProduto.Text;
 
-                string[] produto = textProduto.Split('('); 
+                string[] produto = textProduto.Split('(');
 
                 exeVerificacao.Parameters.AddWithValue("@nome", produto[0]);
 
                 SqlDataReader datareader = exeVerificacao.ExecuteReader();
 
-                while (datareader.Read())
+                if (datareader.Read())
                 {
+                    Models.ProtudoItens.receberValidacao(true);
                     //
-                    quantidade = 1;
-                    valorUnitario = datareader.GetDecimal(5);
-                    valorTotal = valorUnitario * quantidade;
-
-                    //
-                    response = new string[5] { datareader[0].ToString(), datareader.GetString(1), quantidade.ToString(), valorUnitario.ToString(), valorTotal.ToString()};
-
-                    //
-                    textBoxPesquisarProduto.Text = datareader.GetString(1);
-                    textBoxQuantidade.Text = "1";
-                    textBoxValorUnitario.Text = valorUnitario.ToString("N2");
-                    textBoxValorTotal.Text = valorTotal.ToString("N2");
-
-                    //
-                    liberaSacola = true;
+                    Models.ProtudoItens.receberProdutoItem(int.Parse(datareader[0].ToString()), datareader.GetString(1), 1, datareader.GetDecimal(5));
+                }
+                else
+                {
+                    Models.ProtudoItens.receberValidacao(false);
                 }
 
                 banco.desconectar();
@@ -271,24 +261,57 @@ namespace PVD_Vendas
             {
                 MessageBox.Show(ex.Message);
             }
-
-            return response;
-
         }
 
-        private decimal calcularValorTotal_Produto(int quantidade, decimal valorUnitario)
+        private decimal calcularValorTotal_Produto()
         {
-            return 0;
+            int quantidade = 0;
+            decimal valorUnitario = 0, ValorTotal = 0;
+
+            if (textBoxQuantidade.Text != string.Empty && textBoxQuantidade.Text.All(Char.IsNumber)
+                || textBoxValorUnitario.Text != string.Empty && textBoxValorUnitario.Text.All(Char.IsNumber))
+            {
+                quantidade = int.Parse(textBoxQuantidade.Text);
+                valorUnitario = decimal.Parse(textBoxValorUnitario.Text);
+            }
+
+            ValorTotal = quantidade * valorUnitario;
+
+            return ValorTotal;
         }
 
-        private decimal calcularSubTotalTotal_Sacola(decimal Value)
+        private void calcularSubTotalTotal_Sacola(int operation, decimal Value)
         {
-            return 0;
+            //Tipos de Operção
+            // 1 = ADIÇÃO
+            // 2 = SUBTRAÇÃO
+
+            decimal SubTotal_Atual = 0, SubTotal_Novo = 0;
+
+            string subTotal_Label = sacola.labelSubotal_Value.Text;
+            string[] subTotal_Value = subTotal_Label.Split(' ');
+
+            SubTotal_Atual = decimal.Parse(subTotal_Value[1]);
+
+            if (operation == 1)
+            {
+                SubTotal_Novo = SubTotal_Atual + Value;
+            }
+            else if (operation == 2)
+            {
+                SubTotal_Novo = SubTotal_Atual - Value;
+            }
+
+            sacola.labelSubotal_Value.Text = ("R$ " + SubTotal_Novo.ToString("N2"));
         }
+
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            limparControles();
+
             textBoxPesquisarProduto.Focus();
+
         }
 
         private void FormPrincipal_KeyUp(object sender, KeyEventArgs e)
@@ -309,7 +332,7 @@ namespace PVD_Vendas
 
             if (e.KeyCode == Keys.F3)
             {
-                
+
             }
 
             //Completo
@@ -342,9 +365,17 @@ namespace PVD_Vendas
                 sacolaVenda.receberDados(false);
             }
 
+            //Completo
             if (e.KeyCode == Keys.F10)
             {
-                
+                sacola.dataGridViewContent.Focus();
+
+                SendKeys.SendWait("{Tab}");
+                SendKeys.Flush();
+
+                sacola.dataGridViewContent.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 162, 211);
+
+                liberarDeleteSacola = true;
             }
 
             //Completo
@@ -353,9 +384,13 @@ namespace PVD_Vendas
                 buttonConfiguracoes_Click(sender, e);
             }
 
+            
             if (e.KeyCode == Keys.Delete)
             {
-                
+                if(liberarDeleteSacola == true)
+                {
+                    sacola.removerItemSacola();
+                }
             }
 
             //Completo
@@ -371,6 +406,7 @@ namespace PVD_Vendas
                 //
                 textBoxPesquisarProduto.Focus();
             }
+
         }
 
         private void buttonConfiguracoes_Click(object sender, EventArgs e)
@@ -399,6 +435,11 @@ namespace PVD_Vendas
 
         private void textBoxPesquisarProduto_KeyUp(object sender, KeyEventArgs e)
         {
+            if(e.KeyCode == Keys.Delete)
+            {
+                textBoxPesquisarProduto.Clear();
+            }
+
             if (e.KeyCode == Keys.Enter)
             {
                 if (liberaSacola == true)
@@ -409,20 +450,165 @@ namespace PVD_Vendas
                 }
                 else
                 {
-                    dataProdutos();
+                    encontrarProdutos();
+
+                    if (Models.ProtudoItens._ItemEncontrado() == true)
+                    {
+                        //
+                        textBoxPesquisarProduto.Text = Models.ProtudoItens._NomeProduto();
+                        textBoxQuantidade.Text = Models.ProtudoItens._Quantidade().ToString();
+                        textBoxValorUnitario.Text = Models.ProtudoItens._ValorUnitario().ToString("N2");
+                        textBoxValorTotal.Text = calcularValorTotal_Produto().ToString("N2");
+
+                        liberaSacola = true;
+                    }
                 }
             }
         }
 
+        private void textBoxQuantidade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //aceita apenas números, tecla backspace.
+            if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxQuantidade_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (liberaSacola == true)
+                {
+                    buttonIncluirProduto_Click(sender, e);
+
+                    liberaSacola = false;
+                }
+                else
+                {
+                    //
+                    textBoxValorTotal.Text = calcularValorTotal_Produto().ToString("N2");
+                }
+            }
+            else
+            {
+                //
+                textBoxValorTotal.Text = calcularValorTotal_Produto().ToString("N2");
+            }
+        }
+
+        private void textBoxValorUnitario_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (liberaSacola == true)
+                {
+                    buttonIncluirProduto_Click(sender, e);
+
+                    liberaSacola = false;
+                }
+                else
+                {
+                    //
+                    textBoxValorTotal.Text = calcularValorTotal_Produto().ToString("N2");
+                }
+            }
+            else
+            {
+                //
+                textBoxValorTotal.Text = calcularValorTotal_Produto().ToString("N2");
+            }
+        }
+
+        private void textBoxValorUnitario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            #region Codigo que aceita apensa numeros e virgulas
+            //if (e.KeyChar == '.')
+            //{
+            //    //troca o . pela virgula
+            //    e.KeyChar = '.';
+
+            //    //Verifica se já existe alguma vírgula na string
+            //    if (textBoxValorUnitario.Text.Contains("."))
+            //    {
+            //        e.Handled = true; // Caso exista, aborte 
+            //    }
+            //}
+
+
+            //else if (e.KeyChar == ',')
+            //{
+            //    //troca o . pela virgula
+            //    e.KeyChar = ',';
+
+            //    //Verifica se já existe alguma vírgula na string
+            //    if (textBoxValorUnitario.Text.Contains(","))
+            //    {
+            //        e.Handled = true; // Caso exista, aborte 
+            //    }
+            //}
+
+            ////aceita apenas números, tecla backspace.
+            //else if (!char.IsNumber(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+            //{
+            //    e.Handled = true;
+            //}
+            #endregion
+
+            if (char.IsDigit(e.KeyChar) || e.KeyChar.Equals((char)Keys.Back))
+            {
+                TextBox value = (TextBox)sender;
+                string stringValue = Regex.Replace(value.Text, "[^0-9]", string.Empty);
+                if (stringValue == string.Empty) stringValue = "00";
+
+                if (e.KeyChar.Equals((char)Keys.Back))      //  If backspace
+                    stringValue = stringValue.Substring(0, stringValue.Length - 1);      //      takes out the rightmost digit
+                else
+                    stringValue += e.KeyChar;
+
+                value.Text = string.Format("{0:#,##0.00}", Double.Parse(stringValue) / 100);
+                value.Select(value.Text.Length, 0);
+            }
+
+            e.Handled = true;
+        }
+
+        private void textBoxValorUnitario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                //  Cast control
+                TextBox t = (TextBox)sender;
+                t.Text = string.Format("{0:#,##0.00}", 0d);
+                t.Select(t.Text.Length, 0);
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxValorTotal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void buttonIncluirProduto_Click(object sender, EventArgs e)
         {
-            string[] data = { };
+            int idProduto = Models.ProtudoItens._IdProduto();
+            //
+            string nomeProduto = Models.ProtudoItens._NomeProduto();
+            //
+            int quantidade = int.Parse(textBoxQuantidade.Text);
+            //
+            decimal valorUnitario = decimal.Parse(textBoxValorUnitario.Text);
+            //
+            decimal valorTotal = calcularValorTotal_Produto();
+
 
             if (sacolaVenda._retornarValidacao() == true)
             {
-                data = dataProdutos();
+                sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
 
-                sacola.dataGridViewContent.Rows.Add(data[0], data[2], data[1], data[3], data[4]);
+                calcularSubTotalTotal_Sacola(1, valorTotal);
 
                 //
                 limparControles();
@@ -438,9 +624,10 @@ namespace PVD_Vendas
                 groupBoxCaixaVazio.SendToBack();
 
                 //
-                data = dataProdutos();
 
-                sacola.dataGridViewContent.Rows.Add(data[0], data[2], data[1], data[3], data[4]);
+                sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
+
+                calcularSubTotalTotal_Sacola(1, valorTotal);
 
                 //
                 limparControles();
