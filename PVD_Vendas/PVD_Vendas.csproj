@@ -77,6 +77,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseHighDataDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_Alert_Pedidos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_Alert_Pedidos.Designer.cs">
+      <DependentUpon>UserControl_Alert_Pedidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_RemoverProduto.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_RemoverProduto.Designer.cs">
+      <DependentUpon>UserControl_RemoverProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_Sair.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas\Atencao\UserControl_Sair.Designer.cs">
+      <DependentUpon>UserControl_Sair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Alertas\FormAlerta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas\FormAlerta.Designer.cs">
+      <DependentUpon>FormAlerta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Alertas\Informacao\UserControl_Alert_Information.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Alertas\Informacao\UserControl_Alert_Information.Designer.cs">
+      <DependentUpon>UserControl_Alert_Information.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Configuracoes\FormConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +171,21 @@
     <Compile Include="Models\ProtudoItens.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Alertas\Atencao\UserControl_Alert_Pedidos.resx">
+      <DependentUpon>UserControl_Alert_Pedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Alertas\Atencao\UserControl_RemoverProduto.resx">
+      <DependentUpon>UserControl_RemoverProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Alertas\Atencao\UserControl_Sair.resx">
+      <DependentUpon>UserControl_Sair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Alertas\FormAlerta.resx">
+      <DependentUpon>FormAlerta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Alertas\Informacao\UserControl_Alert_Information.resx">
+      <DependentUpon>UserControl_Alert_Information.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Configuracoes\FormConfiguracoes.resx">
       <DependentUpon>FormConfiguracoes.cs</DependentUpon>
     </EmbeddedResource>

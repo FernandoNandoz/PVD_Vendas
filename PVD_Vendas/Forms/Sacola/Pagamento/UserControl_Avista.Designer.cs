@@ -54,14 +54,6 @@
             label4.TabIndex = 39;
             label4.Text = "Forma de pagamento:";
             // 
-            // textBoxValorRecebido
-            // 
-            this.textBoxValorRecebido.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxValorRecebido.Location = new System.Drawing.Point(210, 115);
-            this.textBoxValorRecebido.Name = "textBoxValorRecebido";
-            this.textBoxValorRecebido.Size = new System.Drawing.Size(183, 29);
-            this.textBoxValorRecebido.TabIndex = 42;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -82,6 +74,35 @@
             label2.TabIndex = 43;
             label2.Text = "Conta caixa:";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            label3.Location = new System.Drawing.Point(15, 258);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(457, 13);
+            label3.TabIndex = 47;
+            label3.Text = "___________________________________________________________________________";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new System.Drawing.Font("Microsoft PhagsPa", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(83)))), ((int)(((byte)(119)))));
+            label7.Location = new System.Drawing.Point(148, 297);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(78, 29);
+            label7.TabIndex = 48;
+            label7.Text = "Troco:";
+            // 
+            // textBoxValorRecebido
+            // 
+            this.textBoxValorRecebido.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxValorRecebido.Location = new System.Drawing.Point(210, 115);
+            this.textBoxValorRecebido.Name = "textBoxValorRecebido";
+            this.textBoxValorRecebido.Size = new System.Drawing.Size(183, 29);
+            this.textBoxValorRecebido.TabIndex = 42;
+            // 
             // comboBoxFormaPagamento
             // 
             this.comboBoxFormaPagamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -98,16 +119,6 @@
             this.comboBoxFormaPagamento.Size = new System.Drawing.Size(183, 28);
             this.comboBoxFormaPagamento.TabIndex = 45;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            label3.Location = new System.Drawing.Point(15, 258);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(457, 13);
-            label3.TabIndex = 47;
-            label3.Text = "___________________________________________________________________________";
-            // 
             // labelValueTroco
             // 
             this.labelValueTroco.AutoSize = true;
@@ -118,17 +129,6 @@
             this.labelValueTroco.Size = new System.Drawing.Size(114, 32);
             this.labelValueTroco.TabIndex = 49;
             this.labelValueTroco.Text = "R$ 20,00";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new System.Drawing.Font("Microsoft PhagsPa", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(83)))), ((int)(((byte)(119)))));
-            label7.Location = new System.Drawing.Point(148, 297);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(78, 29);
-            label7.TabIndex = 48;
-            label7.Text = "Troco:";
             // 
             // comboBoxContaCaixa
             // 
@@ -168,10 +168,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxValorRecebido;
-        private System.Windows.Forms.ComboBox comboBoxFormaPagamento;
-        private System.Windows.Forms.Label labelValueTroco;
-        private System.Windows.Forms.ComboBox comboBoxContaCaixa;
+        public System.Windows.Forms.TextBox textBoxValorRecebido;
+        public System.Windows.Forms.ComboBox comboBoxFormaPagamento;
+        public System.Windows.Forms.ComboBox comboBoxContaCaixa;
+        public System.Windows.Forms.Label labelValueTroco;
     }
 }

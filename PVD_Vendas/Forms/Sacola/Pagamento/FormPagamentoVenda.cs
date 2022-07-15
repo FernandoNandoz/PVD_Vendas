@@ -109,7 +109,34 @@ namespace PVD_Vendas.Forms.Sacola
 
         private void buttonEmitirRecibo_Click(object sender, EventArgs e)
         {
+            if(Avista.textBoxValorRecebido.Text == Convert.ToDecimal(0).ToString("C2"))
+            {
+                alertValidation.receberOperacao(11);
 
+                Alertas.FormAlerta window11 = new Alertas.FormAlerta();
+                window11.ShowDialog();
+                window11.Dispose();
+            }
+
+            //CODIGO DE OPERAÇÃO
+            // 5  = Finalizar Pedido
+
+            alertValidation.receberOperacao(5);
+
+            Alertas.FormAlerta window5 = new Alertas.FormAlerta();
+            window5.ShowDialog();
+            window5.Dispose();
+
+            if (alertValidation._retornarValidacao() == true)
+            {
+
+            }
+
+            alertValidation.receberOperacao(10);
+
+            Alertas.FormAlerta window10 = new Alertas.FormAlerta();
+            window10.ShowDialog();
+            window10.Dispose();
         }
 
         private void buttonVoltar_Click(object sender, EventArgs e)

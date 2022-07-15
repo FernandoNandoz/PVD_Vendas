@@ -37,4 +37,31 @@ namespace PVD_Vendas
             return Validacao;
         }
     }
+
+    public class alertValidation
+    {
+        static bool Validacao = false;
+        static int Operacao;
+
+        public static void receberDados(bool validacao)
+        {
+            Validacao = validacao;
+        }
+
+        public static bool _retornarValidacao()
+        {
+            return Validacao;
+        }
+
+
+        public static void receberOperacao(int codigo)
+        {
+            Operacao = codigo;
+        }
+
+        public static int _retornarOperacao()
+        {
+            return Operacao;
+        }
+    }
 }

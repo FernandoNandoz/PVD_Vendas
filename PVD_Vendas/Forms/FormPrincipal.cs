@@ -352,17 +352,43 @@ namespace PVD_Vendas
             //Completo
             if (e.KeyCode == Keys.F7 && sacolaVenda._retornarValidacao() == true)
             {
-                sacola.buttonAguardar_Click(sender, e);
+                //CODIGO DE OPERAÇÃO
+                // 4  = Aguardar Produto/Item
+
+                alertValidation.receberOperacao(4);
+
+                Forms.Alertas.FormAlerta window = new Forms.Alertas.FormAlerta();
+                window.ShowDialog();
+                window.Dispose();
+
+                if (alertValidation._retornarValidacao() == true)
+                {
+                    sacola.buttonAguardar_Click(sender, e);
+
+                    limparControles();
+                }
             }
 
             //Completo
             if (e.KeyCode == Keys.F9 && sacolaVenda._retornarValidacao() == true)
             {
-                limparControles();
+                //CODIGO DE OPERAÇÃO
+                // 3  = Cancelar Produto/Item
 
-                sacola.buttonCancelar_Click(sender, e);
-                //
-                sacolaVenda.receberDados(false);
+                alertValidation.receberOperacao(3);
+
+                Forms.Alertas.FormAlerta window = new Forms.Alertas.FormAlerta();
+                window.ShowDialog();
+                window.Dispose();
+
+                if (alertValidation._retornarValidacao() == true)
+                {
+                    limparControles();
+
+                    sacola.buttonCancelar_Click(sender, e);
+                    //
+                    sacolaVenda.receberDados(false);
+                }
             }
 
             //Completo
@@ -384,19 +410,47 @@ namespace PVD_Vendas
                 buttonConfiguracoes_Click(sender, e);
             }
 
-            
-            if (e.KeyCode == Keys.Delete)
+            //Completo
+            if (e.KeyCode == Keys.Delete && liberarDeleteSacola == true)
             {
-                if(liberarDeleteSacola == true)
+                //CODIGO DE OPERAÇÃO
+                // 2  = Remover Produto/Item
+
+                alertValidation.receberOperacao(2);
+
+                Forms.Alertas.FormAlerta window2 = new Forms.Alertas.FormAlerta();
+                window2.ShowDialog();
+                window2.Dispose();
+
+                if (alertValidation._retornarValidacao() == true)
                 {
                     sacola.removerItemSacola();
+
+                    if(sacola.dataGridViewContent.Rows.Count == 0)
+                    {
+                        limparControles();
+                        //
+                        textBoxPesquisarProduto.Focus();
+                    }
                 }
             }
 
             //Completo
             if (e.KeyCode == Keys.Escape)
             {
-                buttonSair_Click(sender, e);
+                //CODIGO DE OPERAÇÃO
+                // 1  = Sair/fechar programa
+
+                alertValidation.receberOperacao(1);
+
+                Forms.Alertas.FormAlerta window = new Forms.Alertas.FormAlerta();
+                window.ShowDialog();
+                window.Dispose();
+
+                if (alertValidation._retornarValidacao() == true)
+                {
+                    buttonSair_Click(sender, e);
+                }
             }
 
             //Completo
@@ -437,7 +491,7 @@ namespace PVD_Vendas
         {
             if(e.KeyCode == Keys.Delete)
             {
-                textBoxPesquisarProduto.Clear();
+                limparControles();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -556,20 +610,20 @@ namespace PVD_Vendas
             //}
             #endregion
 
-            if (char.IsDigit(e.KeyChar) || e.KeyChar.Equals((char)Keys.Back))
-            {
-                TextBox value = (TextBox)sender;
-                string stringValue = Regex.Replace(value.Text, "[^0-9]", string.Empty);
-                if (stringValue == string.Empty) stringValue = "00";
+            //if (char.IsDigit(e.KeyChar) || e.KeyChar.Equals((char)Keys.Back))
+            //{
+            //    TextBox value = (TextBox)sender;
+            //    string stringValue = Regex.Replace(value.Text, "[^0-9]", string.Empty);
+            //    if (stringValue == string.Empty) stringValue = "00";
 
-                if (e.KeyChar.Equals((char)Keys.Back))      //  If backspace
-                    stringValue = stringValue.Substring(0, stringValue.Length - 1);      //      takes out the rightmost digit
-                else
-                    stringValue += e.KeyChar;
+            //    if (e.KeyChar.Equals((char)Keys.Back))      //  If backspace
+            //        stringValue = stringValue.Substring(0, stringValue.Length - 1);      //      takes out the rightmost digit
+            //    else
+            //        stringValue += e.KeyChar;
 
-                value.Text = string.Format("{0:#,##0.00}", Double.Parse(stringValue) / 100);
-                value.Select(value.Text.Length, 0);
-            }
+            //    value.Text = string.Format("{0:#,##0.00}", Double.Parse(stringValue) / 100);
+            //    value.Select(value.Text.Length, 0);
+            //}
 
             e.Handled = true;
         }
@@ -603,37 +657,49 @@ namespace PVD_Vendas
             //
             decimal valorTotal = calcularValorTotal_Produto();
 
-
-            if (sacolaVenda._retornarValidacao() == true)
+            if (valorUnitario != 0)
             {
-                sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
+                if (sacolaVenda._retornarValidacao() == true)
+                {
+                    sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
 
-                calcularSubTotalTotal_Sacola(1, valorTotal);
+                    calcularSubTotalTotal_Sacola(1, valorTotal);
 
-                //
-                limparControles();
+                    //
+                    limparControles();
+                }
+                else
+                {
+                    sacolaVenda.receberDados(true);
+                    //
+                    sacola.Width = panelContent.Width;
+                    sacola.Height = panelContent.Height;
+
+                    panelContent.Controls.Add(sacola);
+                    groupBoxCaixaVazio.SendToBack();
+
+                    //
+
+                    sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
+
+                    calcularSubTotalTotal_Sacola(1, valorTotal);
+
+                    //
+                    limparControles();
+                }
             }
             else
             {
-                sacolaVenda.receberDados(true);
-                //
-                sacola.Width = panelContent.Width;
-                sacola.Height = panelContent.Height;
+                //CODIGO DE OPERAÇÃO
+                // 12  = Valor unitario é igual a zero
 
-                panelContent.Controls.Add(sacola);
-                groupBoxCaixaVazio.SendToBack();
+                alertValidation.receberOperacao(12);
 
-                //
+                Forms.Alertas.FormAlerta window12 = new Forms.Alertas.FormAlerta();
+                window12.ShowDialog();
+                window12.Dispose();
 
-                sacola.dataGridViewContent.Rows.Add(idProduto, quantidade, nomeProduto, valorUnitario, valorTotal.ToString("N2"));
-
-                calcularSubTotalTotal_Sacola(1, valorTotal);
-
-                //
-                limparControles();
             }
-
         }
-
     }
 }
